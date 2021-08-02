@@ -1,0 +1,14 @@
+FROM centos:8
+MAINTAINER this is nginx image, created by zhangqiongjie use centos:8 
+# install dependinces packages
+RUN yum -y install wget  make zlib zlib-devel gcc-c++ libtool openssl openssl-devel
+#i install pcre to surpose rewrite feature for nginx
+RUN wget http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz && tar -zxf pcre-8.35.tar.gz && ./pcre-8.35/configure && make && make install
+# install nginx
+RUN wget https://nginx.org/download/nginx-1.20.1.tar.gz && tar xvf nginx-1.20.1.tar.gz && cd nginx-1.20.1 && ./configure --prefix=/usr/local/nginx && make && make install && echo "<h1>This is version 2.</h1>" > /usr/local/nginx/html/index.html
+# expose port 80 and 443 for nginx
+EXPOSE 80
+EXPOSE 443
+# update the setup method by daemon
+RUN echo "daemon off;">>/usr/local/nginx/conf/nginx.conf
+CMD ["/usr/local/nginx/sbin/nginx"]
