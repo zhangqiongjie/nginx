@@ -2,3 +2,4 @@ Build this image used to do some related test.
 You can use it by docker pull command, such as below:
 docker pull zhangqiongjie/nginx:v1
 docker pull zhangqiongjie/nginx:v2
+
